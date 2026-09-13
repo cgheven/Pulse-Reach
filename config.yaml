@@ -1,0 +1,48 @@
+market: UK
+country: United Kingdom
+language: en
+region: gb
+
+# Start with London. Add more cities later without changing the code.
+searches:
+  - city: London
+    category: hostel
+    limit: 30
+  - city: London
+    category: student accommodation
+    limit: 40
+  - city: London
+    category: HMO
+    limit: 30
+  - city: London
+    category: co-living
+    limit: 20
+  - city: London
+    category: guest house
+    limit: 20
+  - city: London
+    category: boarding house
+    limit: 10
+
+filters:
+  only_operational: true
+  min_reviews: 0
+  exclude_categories:
+    - university
+    - college
+
+qualification:
+  batch_size: 10
+  batch_delay_seconds: 0.2
+  # IMPORTANT: false. Many good businesses have no website in the Maps result;
+  # Claude can still qualify them from name/category/address/reviews.
+  only_send_to_claude_if:
+    has_website: false
+  priority_to_export:
+    - A
+    - B
+
+output:
+  database: data/pulsehub_leads.db
+  raw_csv: data/raw_leads.csv
+  qualified_csv: data/qualified_leads.csv

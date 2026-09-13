@@ -1,0 +1,250 @@
+Build Pulse Reach — an internal lead generation
+and email outreach automation tool for PulseHub.
+
+This is a separate project from HMS.
+Do not mix with existing HMS codebase.
+
+---
+
+TECH STACK
+
+Frontend: Next.js
+Database: Neon PostgreSQL
+APIs: Outscraper, Instantly
+Hosting: Vercel
+
+---
+
+WHAT TO BUILD
+
+1. LEAD COLLECTION
+
+Search form with:
+- Country dropdown
+- City input
+- Results limit selector (100, 200, 500)
+- Search button
+
+On search:
+- Call Outscraper Google Maps API
+- Query: "hostel [city] [country]"
+- Extract: name, email, phone, website, address, city, country
+- Filter out leads with no email
+- Remove duplicates by email
+- Save to Neon database
+- Show results in table
+
+Results table columns:
+- Hostel name
+- Email
+- Phone
+- City
+- Country
+- Website
+- Status (New, Added to Campaign, Replied, Converted)
+
+2. CAMPAIGN MANAGEMENT
+
+Campaign creation:
+- Campaign name (auto: "Pulse HMS - [Country] - [Date]")
+- Select leads from database
+- Filter by country or city
+- Select all or individual leads
+- Click Launch Campaign button
+
+On launch:
+- Create campaign in Instantly via API
+- Upload selected leads to campaign
+- Activate campaign
+- Update lead status to "Added to Campaign"
+- Show success message with campaign link
+
+Campaign list page:
+- Show all active campaigns
+- Campaign name
+- Leads count
+- Emails sent
+- Open rate
+- Reply rate
+- Status
+
+3. LEADS DATABASE
+
+Full leads management:
+- View all collected leads
+- Filter by country, city, status
+- Export to CSV
+- Delete duplicates
+- Mark as replied or converted
+- Add notes per lead
+
+4. DASHBOARD
+
+Simple overview showing:
+- Total leads collected
+- Total emails sent
+- Total open rate
+- Total reply rate
+- Total converted
+- Active campaigns count
+- Leads by country chart
+
+---
+
+EMAIL SEQUENCE
+
+Configure in Instantly directly.
+5 emails over 14 days:
+
+Email 1 Day 1:
+Subject: Hostel Management Software — Free 14 Day Trial
+Body:
+Hi,
+
+We help hostel owners automate rent collection,
+AC billing and fill empty beds automatically.
+
+Start free 14 day trial — no card required:
+hostel.yourpulse.io
+
+Musab Khan
+Founder — PulseHub
+
+Email 2 Day 3:
+Subject: Did you see this?
+Body:
+Hi,
+
+One feature our clients love most — AC bill
+split per tenant, calculated automatically.
+
+No more manual calculations or disputes.
+
+See it live: hostel.yourpulse.io
+
+Musab Khan
+
+Email 3 Day 7:
+Subject: How hostels in Pakistan use Pulse HMS
+Body:
+Hi,
+
+Hostel owners across Lahore and Islamabad use
+Pulse HMS to manage tenants, collect rent
+automatically and fill empty beds through
+our referral engine.
+
+14 day free trial — no card required:
+hostel.yourpulse.io
+
+Musab Khan
+
+Email 4 Day 10:
+Subject: Your free trial is waiting
+Body:
+Hi,
+
+Just a reminder your free trial is available
+whenever you are ready.
+
+No card. No commitment. Cancel anytime.
+
+hostel.yourpulse.io
+
+Musab Khan
+
+Email 5 Day 14:
+Subject: Last message from me
+Body:
+Hi,
+
+This is my last email. If timing is not right
+now — no problem. Our free trial is always
+available at hostel.yourpulse.io whenever you need it.
+
+Wishing you the best.
+
+Musab Khan
+
+---
+
+DATABASE SCHEMA
+
+Table: leads
+- id
+- hostel_name
+- email
+- phone
+- website
+- address
+- city
+- country
+- status (new, campaign_added, replied, converted)
+- notes
+- created_at
+- updated_at
+
+Table: campaigns
+- id
+- name
+- instantly_campaign_id
+- country
+- city
+- leads_count
+- status
+- created_at
+
+Table: campaign_leads
+- id
+- campaign_id
+- lead_id
+- added_at
+
+---
+
+ENVIRONMENT VARIABLES
+
+OUTSCRAPER_API_KEY
+INSTANTLY_API_KEY
+DATABASE_URL (Neon PostgreSQL)
+
+---
+
+RULES
+
+Simple and functional UI
+Dark theme
+Mobile responsive
+No unnecessary features
+Internal tool — no auth needed for now
+Do not connect to HMS or Supabase
+Use Neon PostgreSQL only
+
+
+Add to existing Pulse Reach build:
+
+1. Business type selector on search form
+   - Hostel
+   - Gym
+   - Clinic
+   - Building
+   - Retail Shop
+   - VFX Studio
+   - Game Studio
+   - Custom (manual input)
+
+2. Product selector
+   - Pulse HMS
+   - Pulse GMS
+   - Pulse CMS
+   - Pulse BMS
+   - CGHeven
+   - Custom
+
+3. Email sequence selector in Instantly
+   - Different sequence per product
+   - Pre configured in Instantly dashboard
+   - Select by name when launching campaign
+
+Store business_type and product in
+leads and campaigns tables.
