@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: #0c0d10;
+  color: #ececef;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: -0.011em;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2d35 transparent;
+}
+
+.card {
+  @apply rounded-xl border border-white/[0.08] bg-[#12141a];
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition;
+}
+
+.btn-primary {
+  @apply bg-accent text-ink-950 hover:bg-teal-200;
+}
+
+.btn-secondary {
+  @apply border border-white/10 bg-white/[0.04] text-zinc-100 hover:bg-white/[0.08];
+}
+
+.btn-danger {
+  @apply border border-rose-500/25 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20;
+}
+
+.field {
+  @apply w-full rounded-lg border border-white/10 bg-[#0c0d10] px-3 py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-white/20;
+}
+
+.badge {
+  @apply inline-flex items-center rounded-md border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide;
+}
